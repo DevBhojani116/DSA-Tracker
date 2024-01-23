@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { questionsModel } from "./questions";
 
 const categorySchema = mongoose.Schema(
     {
@@ -22,7 +23,8 @@ const categorySchema = mongoose.Schema(
         },
         questions:
         {
-            type: mongoose.Schema.Types.ObjectId
+            type: mongoose.Schema.Types.ObjectId,
+            ref: questionsModel
         }
     }
 );
