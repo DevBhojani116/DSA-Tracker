@@ -23,7 +23,7 @@ const categorySchema = mongoose.Schema(
         },
         questions:
         {
-            type: mongoose.Schema.Types.ObjectId, //refers to questions
+            type: [mongoose.Schema.Types.ObjectId], //refers to array of questions
             ref: questionsModel
         }
     }
