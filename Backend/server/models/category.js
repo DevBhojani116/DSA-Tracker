@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-export const categorySchema = mongoose.Schema(
+const categorySchema = mongoose.Schema(
     {
         name: 
         {
@@ -9,7 +9,22 @@ export const categorySchema = mongoose.Schema(
         },
         resources:
         {
-            type: 
+            type: [String]
+        },
+        notes:
+        {
+            type: String
+        },
+        completion:
+        {
+            type: Number,
+            default: 0
+        },
+        questions:
+        {
+            type: [String]
         }
     }
 );
+
+export const categoryModel = mongoose.model("Category Schema" ,categorySchema);
