@@ -2,6 +2,7 @@ import express from "express";
 
 const router = express.Router({mergeParams:true});
 
+router.post("/",postQuestion)
 router.get("/",getAllQuestions);
 router.get("/:qid",getQuestionByID);
 router.delete("/:qid",deleteQuestionByID);
