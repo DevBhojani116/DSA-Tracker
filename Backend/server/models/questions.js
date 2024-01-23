@@ -9,12 +9,12 @@ const questionsSchema = mongoose.Schema(
         },
         difficulty:
         {
-            type: Number,
+            type: Number, //0-easy, 1-medium, 2-hard
             required: true
         },
         solution:
         {
-            type: [String]
+            type: [String] //an array of links
         },
         notes:
         {
@@ -23,6 +23,9 @@ const questionsSchema = mongoose.Schema(
         status:
         {
             type: Number
+            //0-not done
+            //1-marked for review
+            //2-completed
         }
     }
 );

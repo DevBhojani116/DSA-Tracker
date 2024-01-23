@@ -10,7 +10,7 @@ const categorySchema = mongoose.Schema(
         },
         resources:
         {
-            type: [String]
+            type: [String] //arrays of links
         },
         notes:
         {
@@ -18,12 +18,12 @@ const categorySchema = mongoose.Schema(
         },
         completion:
         {
-            type: Number,
+            type: Number, //completion percentage
             default: 0
         },
         questions:
         {
-            type: mongoose.Schema.Types.ObjectId,
+            type: mongoose.Schema.Types.ObjectId, //refers to questions
             ref: questionsModel
         }
     }
