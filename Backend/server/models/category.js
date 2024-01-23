@@ -22,7 +22,7 @@ const categorySchema = mongoose.Schema(
         },
         questions:
         {
-            type: [String]
+            type: mongoose.Schema.Types.ObjectId
         }
     }
 );
