@@ -3,11 +3,11 @@ import express from "express";
 const router = express.Router({mergeParams:true});
 
 router.get("/",getAllQuestions);
-router.get("/:_id",getQuestionByID);
-router.delete("/:_id",deleteQuestionByID);
-router.put("/:_id",updateQuestion);
-router.patch("/:_id",changeStatus);
-router.patch("/:_id",addNote);
-router.patch("/:_id",deleteNote);
+router.get("/:qid",getQuestionByID);
+router.delete("/:qid",deleteQuestionByID);
+router.put("/:qid",updateQuestion);
+router.patch("/:qid",changeStatus);
+router.patch("/:qid",addNote);
+router.patch("/:qid",deleteNote);
 
 export default router;
