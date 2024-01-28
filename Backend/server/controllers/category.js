@@ -78,3 +78,48 @@ export const deleteCategory = async(req,res) =>
         res.status(500).json({message: err.message});
     }
 }
+
+export const addNote = async(req,res) =>
+{
+    try
+    {
+        const {_id} = req.params;
+        if(!isValidID(_id))
+        {
+            return res.status(400).send("Category does not exist");
+        }
+        const update = req.body;
+
+        const category = await categoryModel.findById(_id);
+        category.notes = update.notes || category.notes;
+        category.save();
+        res.status(200).json({category});
+    }
+    catch(err)
+    {
+        res.status(500).json({message: err.message});
+    }
+}
+
+export const addResources = async(req,res) =>
+{
+    try
+    {
+        const {_id} = req.params;
+        if(!isValidID(_id))
+        {
+            return res.status(400).send("Category does not exist");
+        }
+        const update = req.body;
+
+        const category = await categoryModel.findById(_id);
+        if(update.resources != null)
+            category.resources = (category.resources).concat(update.resources);
+        category.save();
+        res.status(200).json({category});
+    }
+    catch(err)
+    {
+        res.status(500).json({message: err.message});
+    }
+}
