@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { questionsModel } from "./questions";
+// import { questionsModel } from "./questions.js";
 
 const categorySchema = mongoose.Schema(
     {
@@ -21,11 +21,11 @@ const categorySchema = mongoose.Schema(
             type: Number, //completion percentage
             default: 0
         },
-        questions:
-        {
-            type: [mongoose.Schema.Types.ObjectId], //refers to array of questions
-            ref: questionsModel
-        }
+        // questions:
+        // {
+        //     type: [mongoose.Schema.Types.ObjectId], //refers to array of questions
+        //     ref: questionsModel
+        // }
     }
 );
 
