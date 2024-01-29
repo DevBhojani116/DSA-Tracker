@@ -3,8 +3,10 @@ import mongoose from 'mongoose';
 
 import { PORT, dbURL } from './config.js';
 import bodyParser from 'body-parser';
+
 import { categoryModel } from './models/category.js';
 import categoryRouter from './routes/category.js';
+
 import cors from 'cors';
 
 const app = express();
