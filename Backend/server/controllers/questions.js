@@ -132,3 +132,71 @@ export const notDone = async(req,res) =>
         res.status(500).json({message:err.message});
     }
 }
+
+export const addSolution = async(req,res) =>
+{
+    try
+    {
+        const {_id} = req.params;
+        if(!isValidID)
+        {
+            res.status(404).send("Question doesn't exist");
+        }
+        const question = await questionsModel.findById(_id);
+
+        const solution = req.body;
+        if(solution != null)
+        {
+            question.solution = question.solution.concat(solution);
+        }
+        question.save();
+    }
+    catch(err)
+    {
+        res.status(500).json({message:err.message});
+    }
+}
+
+export const deleteQuestion = async(req,res) =>
+{
+    try
+    {
+        const {_id} = req.params;
+        if(!isValidID(_id))
+        {
+            return res.status(400).send("Question does not exist");
+        }
+
+        await questionsModelModel.findByIdAndDelete(_id);
+        res.status(201).send("Question deleted");
+    }
+    catch(err)
+    {
+        res.status(500).json({message:err.message});
+    }
+}
+
+export const updateQuestion = async(req,res) =>
+{
+    try
+    {
+        const {_id} = req.params;
+        if(!isValidID(_id))
+        {
+            return res.status(400).send("Question does not exist");
+        }
+        const question = await questionsModel.findById(_id);
+
+        if(!isValidQuestion(req.body))
+        {
+            return res.status(404).send("Important parameters like name or difficulty missing");
+        }
+
+        const updatedQuestion = await questionsModel.findByIdAndUpdate(_id, req.body, {new: true})
+        res.status(200).json({updatedQuestion})
+    }
+    catch(err)
+    {
+        res.status(500).json({message:err.message});
+    }
+}

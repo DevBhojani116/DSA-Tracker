@@ -1,6 +1,6 @@
 import express from "express";
 
-import { postQuestion,getAllQuestions,getQuestionByID,revision,done,notDone } from "../controllers/questions.js";
+import { postQuestion,getAllQuestions,getQuestionByID,revision,done,notDone,addSolution,deleteQuestion,updateQuestion } from "../controllers/questions.js";
 
 const router = express.router({mergeParams:true});
 
