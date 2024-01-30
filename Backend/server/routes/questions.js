@@ -2,7 +2,7 @@ import express from "express";
 
 import { postQuestion,getAllQuestions,getQuestionByID,revision,done,notDone,addSolution,deleteQuestion,updateQuestion } from "../controllers/questions.js";
 
-const router = express.router({mergeParams:true});
+const router = express.Router({mergeParams:true});
 
 router.post("/:cid",postQuestion);
 router.get("/",getAllQuestions);
