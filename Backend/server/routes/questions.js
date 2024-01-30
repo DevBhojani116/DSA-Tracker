@@ -1,14 +1,17 @@
 import express from "express";
 
-const router = express.Router({mergeParams:true});
+import { postQuestion,getAllQuestions,getQuestionByID,revision,done,notDone } from "../controllers/questions.js";
 
-router.post("/",postQuestion)
+const router = express.router({mergeParams:true});
+
+router.post("/:cid",postQuestion);
 router.get("/",getAllQuestions);
-router.get("/:qid",getQuestionByID);
-router.delete("/:qid",deleteQuestionByID);
-router.put("/:qid",updateQuestion);
-router.patch("/:qid",changeStatus);
-router.patch("/:qid",addNote);
-router.patch("/:qid",deleteNote);
+router.get("/:_id",getQuestionByID);
+router.patch("/:_id/revision",revision);
+router.patch("/:_id/done",done);
+router.patch(":_id/notDone",notDone);
+router.patch("/:_id/addSolution", addSolution);
+router.delete("/:_id",deleteQuestion);
+router.put("/:_id",updateQuestion);
 
 export default router;

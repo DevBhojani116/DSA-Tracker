@@ -22,7 +22,8 @@ const questionsSchema = mongoose.Schema(
         },
         status:
         {
-            type: Number
+            type: Number,
+            default: 0
             //0-not done
             //1-marked for review
             //2-completed

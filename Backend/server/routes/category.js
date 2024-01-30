@@ -1,10 +1,11 @@
 import express from "express";
-// import questionsRouter from "./questions.js";
+
+import questionsRouter from "./questions.js";
 import { postCategory,getAllCategories,getCategoryByID,deleteCategory,addNote,addResources } from "../controllers/category.js";
 
 const router = express.Router({mergeParams:true});
 
-// router.use("/:cid/questions",questionsRouter);
+router.use("/:cid/questions",questionsRouter);
 router.post("/",postCategory);
 router.get("/",getAllCategories);
 router.get("/:_id",getCategoryByID);
