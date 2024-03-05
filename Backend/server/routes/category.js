@@ -5,7 +5,7 @@ import { postCategory,getAllCategories,getCategoryByID,deleteCategory,addNote,ad
 
 const router = express.Router({mergeParams:true});
 
-router.use("/:cid/questions",questionsRouter);
+router.use("/:cid",questionsRouter);
 router.post("/",postCategory);
 router.get("/",getAllCategories);
 router.get("/:_id",getCategoryByID);

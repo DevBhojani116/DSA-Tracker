@@ -23,8 +23,46 @@ const categorySchema = mongoose.Schema(
         },
         questions:
         {
-            type: [mongoose.Schema.Types.ObjectId], //refers to array of questions
-            ref: questionsModel
+            type: //array of questions
+            [
+                // mongoose.Schema.Types.ObjectId
+                // {
+                //     name: String,
+                //     difficulty: Number, //0-easy, 1-medium, 2-hard
+                //     solution: [String], //an array of links
+                //     notes: String,
+                //     status: Number //0-not done, 1-marked for review, 2-completed
+                // }
+                {
+                    name:
+                    {
+                        type: String,
+                        required: true
+                    },
+                    difficulty:
+                    {
+                        type: Number, //0-easy, 1-medium, 2-hard
+                        required: true
+                    },
+                    solution:
+                    {
+                        type: [String] //an array of links
+                    },
+                    notes:
+                    {
+                        type: String
+                    },
+                    status:
+                    {
+                        type: Number,
+                        default: 0
+                        //0-not done
+                        //1-marked for review
+                        //2-completed
+                    }
+                }
+            ]
+            // ,ref: questionsModel
         }
     }
 );
