@@ -5,13 +5,13 @@ import { postQuestion,getAllQuestions,getQuestionByID,revision,done,notDone,addS
 const router = express.Router({mergeParams:true});
 
 router.post("/:cid",postQuestion);
-router.get("/",getAllQuestions);
-router.get("/:_id",getQuestionByID);
-router.patch("/:_id/revision",revision);
-router.patch("/:_id/done",done);
-router.patch(":_id/notDone",notDone);
-router.patch("/:_id/addSolution", addSolution);
-router.delete("/:_id",deleteQuestion);
-router.put("/:_id",updateQuestion);
+router.get("/:cid",getAllQuestions);
+// router.get("/:_id",getQuestionByID);
+router.patch("/:cid/:qid/revision",revision);
+router.patch("/:cid/:qid/done",done);
+router.patch("/:cid/:qid/notDone",notDone);
+router.patch("/:cid/:qid/addSolution", addSolution);
+router.delete("/:cid/:qid",deleteQuestion);
+router.put("/:cid/:qid",updateQuestion);
 
 export default router;
