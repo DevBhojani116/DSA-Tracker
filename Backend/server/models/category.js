@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { questionsModel } from "./questions.js";
+// import { questionsModel } from "./questions.js";
 
 const categorySchema = mongoose.Schema(
     {
@@ -23,15 +23,16 @@ const categorySchema = mongoose.Schema(
         },
         questions:
         {
-            type: //array of questions
+            type: //list of questions
             [
                 // mongoose.Schema.Types.ObjectId
                 // {
                 //     name: String,
                 //     difficulty: Number, //0-easy, 1-medium, 2-hard
-                //     solution: [String], //an array of links
+                //     solution: String, //an array of links
                 //     notes: String,
-                //     status: Number //0-not done, 1-marked for review, 2-completed
+                //     status: Number, //0-not done, 1-marked for review, 2-completed
+                //     // link: [String]
                 // }
                 {
                     name:
@@ -46,7 +47,7 @@ const categorySchema = mongoose.Schema(
                     },
                     solution:
                     {
-                        type: [String] //an array of links
+                        type: String //link
                     },
                     notes:
                     {
@@ -59,6 +60,11 @@ const categorySchema = mongoose.Schema(
                         //0-not done
                         //1-marked for review
                         //2-completed
+                    },
+                    link:
+                    {
+                        type: [String],
+                        required: true
                     }
                 }
             ]

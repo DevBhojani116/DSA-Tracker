@@ -6,10 +6,24 @@ const isValidID = _id => (mongoose.Types.ObjectId.isValid(_id));
 
 const isValidQuestion = (question) =>
 {
-    if(!question.name || !question.difficulty)
+    if(!question.name || !question.difficulty || !question.link)
         return false;
     else
         return true;
+}
+
+const completionPercent = async(cid) =>
+{
+    const category = await categoryModel.findById(cid);
+    const n = category.questions.length;
+    let numberOfQuestionsSolved = category.questions.filter(
+        (question) =>
+        {
+            if(question.status == 2)
+                return question;
+        }
+    ).length;
+    return (numberOfQuestionsSolved*100/n);
 }
 
 export const postQuestion = async(req,res) =>
@@ -21,16 +35,24 @@ export const postQuestion = async(req,res) =>
             return res.status(404).send("Category not found");
         let category = await categoryModel.findById(cid);
 
-        if(!isValidQuestion(req.body))
+        const newQuestions = req.body;
+        for(let i = 0; i<newQuestions.length; i++)
         {
-            return res.status(404).send("Important parameters like name or difficulty missing");
+            if(isValidQuestion(newQuestions[i]))
+            {
+                return res.status(404).send("Important parameters like name or difficulty or link to the question missing");
+            }
+            category.questions.push(newQuestions[i]);
+            await category.save();
         }
-        const newQuestion = await questionsModel.create(req.body);
+        
+        // category.questions.push(newQuestions);
+        // await category.save();
 
-        category.questions.push(newQuestion);
+        category.completion = await completionPercent(cid);
         await category.save();
 
-        res.status(200).json({newQuestion});
+        res.status(200).json({newQuestions});
     }
     catch(err)
     {
@@ -56,24 +78,6 @@ export const getAllQuestions = async(req,res) =>
     }
 }
 
-// export const getQuestionByID = async(req,res) =>
-// {
-//     try
-//     {
-//         const {_id} = req.params;
-//         if(!isValidID)
-//         {
-//             return res.status(404).send("Question doesn't exist");
-//         }
-//         const question = await questionsModel.findById(_id);
-//         res.status(200).json({question});
-//     }
-//     catch(err)
-//     {
-//         res.status(500).json({message:err.message});
-//     }
-// }
-
 export const revision = async(req,res) =>
 {
     try
@@ -91,6 +95,9 @@ export const revision = async(req,res) =>
         let question = category.questions.id(qid);
         // const question = await questionsModel.findById(_id);
         question.status = 1;
+        await category.save();
+
+        category.completion = await completionPercent(cid);
         await category.save();
 
         res.status(200).json({message: "Marked for review(1)", question});
@@ -116,8 +123,11 @@ export const done = async(req,res) =>
             return res.status(404).send("Question doesn't exist");
         }
         let question = category.questions.id(qid);
-        // const question = await questionsModel.findById(_id);
+
         question.status = 2;
+        await category.save();
+
+        category.completion = await completionPercent(cid);
         await category.save();
 
         res.status(200).json({message: "Completed(2)", question});
@@ -143,8 +153,11 @@ export const notDone = async(req,res) =>
             return res.status(404).send("Question doesn't exist");
         }
         let question = category.questions.id(qid);
-        // const question = await questionsModel.findById(_id);
+
         question.status = 0;
+        await category.save();
+
+        category.completion = await completionPercent(cid);
         await category.save();
 
         res.status(200).json({message: "Not completed(0)", question});
@@ -170,7 +183,7 @@ export const addSolution = async(req,res) =>
         {
             res.status(404).send("Question doesn't exist");
         }
-        const question = category.questions.id(cid);
+        const question = category.questions.id(qid);
         const solution = req.body;
         if(solution != null)
         {
@@ -200,9 +213,32 @@ export const deleteQuestion = async(req,res) =>
             res.status(404).send("Question doesn't exist");
         }
         const questionIdx = category.questions.findIndex((question) => question._id == qid);
+        if (questionIdx === -1) 
+        {
+            return res.status(404).send("Question not found");
+        }
+        const question = category.questions.id(qid);
+        if(question != null)
+        {
+            category.questions.splice(questionIdx, 1);
+            await category.save();
+            if(category.questions.length != 0)
+            {
+                category.completion = await completionPercent(cid);
+                await category.save();
+            }
+            else
+            {
+                category.completion = 0;
+                await category.save();
+            }
 
-        category.questions.splice(questionIdx, 1);
-        res.status(201).send("Question deleted");
+            res.status(201).send({message: "Question deleted",question});
+        }
+        else
+        {
+            res.status(404).send("Question doesn't exist in this category");
+        }
     }
     catch(err)
     {
@@ -231,7 +267,7 @@ export const updateQuestion = async(req,res) =>
 
         const updatedQuestion = req.body;
         
-        const category = await questionsModel.findById(cid);
+        const category = await categoryModel.findById(cid);
         const questionToUpdate = category.questions.id(qid);
 
         questionToUpdate.name = updatedQuestion.name || questionToUpdate.name;
@@ -240,8 +276,11 @@ export const updateQuestion = async(req,res) =>
         questionToUpdate.notes = updatedQuestion.notes || questionToUpdate.notes;
         questionToUpdate.status = updatedQuestion.status || questionToUpdate.status;
 
-        category.save();
-    
+        await category.save();
+        
+        category.completion = await completionPercent(cid);
+        await category.save();
+
         res.status(200).json({updatedQuestion})
     }
     catch(err)

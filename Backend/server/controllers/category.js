@@ -20,7 +20,7 @@ export const postCategory = async(req,res) =>
             return res.status(404).send("Name missing");
         }
         const newCategory = await categoryModel.create(req.body);
-        res.status(201);
+        res.status(200).json({newCategory});
     }
     catch(err)
     {
@@ -121,5 +121,34 @@ export const addResources = async(req,res) =>
     catch(err)
     {
         res.status(500).json({message: err.message});
+    }
+}
+
+export const updateCategory = async(req,res) =>
+{
+    try
+    {
+        const {_id} = req.params;
+        if(!isValidID(_id))
+        {
+            return res.status(404).send("Category does not exist");
+        }
+
+        const updatedCategory = req.body;
+        
+        const categoryToUpdate = await categoryModel.findById(_id);
+
+        categoryToUpdate.name = updatedCategory.name || categoryToUpdate.name;
+        categoryToUpdate.resources = updatedCategory.resources || categoryToUpdate.resources;
+        categoryToUpdate.notes = updatedCategory.notes || categoryToUpdate.notes;
+        categoryToUpdate.questions = updatedCategory.questions || categoryToUpdate.questions;
+
+        categoryToUpdate.save();
+    
+        res.status(200).json({updatedCategory})
+    }
+    catch(err)
+    {
+        res.status(500).json({message:err.message});
     }
 }

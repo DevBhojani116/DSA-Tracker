@@ -7,8 +7,8 @@ import bodyParser from 'body-parser';
 import { categoryModel } from './models/category.js';
 import categoryRouter from './routes/category.js';
 
-import { questionsModel } from './models/questions.js';
-import questionsRouter from './routes/questions.js';
+// import { questionsModel } from './models/questions.js';
+// import questionsRouter from './routes/questions.js';
 
 import cors from 'cors';
 
@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({limit:"30mb",extended:true}));
 app.use(cors());
 
 app.use("/category",categoryRouter);
-app.use("/questions",questionsRouter);
+// app.use("/questions",questionsRouter);
 
 app.get('/', (req, res) => {
     res.send('Hello World!');
