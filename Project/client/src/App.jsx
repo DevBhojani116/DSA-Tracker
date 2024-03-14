@@ -19,12 +19,17 @@ const useAPI = () =>
   const searchCategories = async() =>
   {
     const response = await axios.get(SERVER_API_URL);
+    // const categories = response.data.categories;
+    // categories.forEach((category) =>
+    // {
+    //   console.log(category.name);
+    // });
     console.log(response.data);
   }
   useEffect(() =>
   {
       searchCategories();
-;  },[])
+  },[])
 }
 
 export default App;
