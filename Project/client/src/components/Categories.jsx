@@ -3,7 +3,7 @@ import axios from "axios";
 import Category from "./Category.jsx";
 import { SERVER_API_URL } from "../config.js";
 
-function Categories({changeCategory}) {
+function Categories() {
   const [categories, setCategories] = useState([]);
   const [err, setErr] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -36,8 +36,6 @@ function Categories({changeCategory}) {
               resources = {category.resources}
               completion = {category.completion}
               questions = {category.questions}
-              category={category}
-              changeCategory={changeCategory}
             />
           ))}
         </>

@@ -6,30 +6,18 @@ import "../App.css";
 
 function Question(props) {
   return (
-    // <div className="cards">
-      <div className="question">
-        <div>
-            <table>
-                <tr>
-                    <th>Question id</th>
-                    <th>Question name</th>
-                    <th>Difficulty</th>
-                    <th>Link to solution</th>
-                    <th>Question status</th>
-                </tr>
-                <tr>
-                    <td>{props.id}</td>
-                    <a href = {props.link[0]}><td>{props.name}</td></a>
-                    <td>{props.difficulty}</td>
-                    <td>{props.solution}</td>
-                    <td>{props.status}</td>
-                </tr>
-            </table>
-        </div>
-        {/* {props.id} {props.name} {props.resources.map((resource) => {return resource})} {props.completion}
-        {props.questions.map((question) => {return question.name})} */}
-      </div>
-    // </div>
+    <tr className="question">
+      <td>{props.id}</td>
+      <td>
+        <a href={props.link[0]}>{props.name}</a>
+      </td>
+      <td>{props.difficulty == 0?"Easy":props.difficulty == 1?"Medium":"Hard"}</td>
+      <td>
+        <a href={props.solution}>{props.solution}</a>
+      </td>
+      <td>{props.status}</td>
+      <td>{props.notes}</td>
+    </tr>
   );
 }
 
