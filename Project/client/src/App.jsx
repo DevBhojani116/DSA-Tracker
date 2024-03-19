@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Await } from "react-router-dom";
 
 import Home from "./pages/Home";
 import Questions from "./components/Questions";
@@ -12,30 +12,29 @@ import axios from 'axios';
 
 const App = () =>
 {
-  // const [category,setCategory] = useState([]);
-  const [data, setData] = useState([]);
-  const [category, setCategory] = useState([]);
-  const changeCategory = (newCategory) => {
-    setCategory(newCategory);
-    console.log(category)
-    console.log(newCategory)
-  }
-  const searchCategories = async() =>
-  {
-    const response = await axios.get(SERVER_API_URL);
-
-    return(response.data.categories);
-    const categories = response.data.categories;
-    categories.forEach((category) =>
+//   const categories = axios.get(SERVER_API_URL);
+//   categories.data.map((category) =>
+//     {
+//       console.log(category.name);
+//     });
+// console.log(categories.data);
+const [categories, setCategories] = useState([]);
+  const fetchData = async () => {
+    try {
+      const res = await axios.get(SERVER_API_URL);
+      console.log(res.data);
+      setCategories(res.data.categories);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  categories.map((category) =>
     {
       console.log(category.name);
     });
-    // console.log(response.data);
-  }
-  useEffect(() =>
-  {
-      searchCategories();
-  },[])
+// console.log(categories[0]._id);
+
+  useEffect(() => {fetchData()}, []);
   // return(
   //   <div className = "app">
   //     <h1>DSA Tracker</h1>
@@ -45,13 +44,11 @@ const App = () =>
     <div>
       <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Home changeCategory={changeCategory}/>} />
-            <Route path={`/${category._id}`} element={<Questions changeCategory={changeCategory}/>} />
-            {/* {categories.map((category) => (
-              <Route path={`/${category._id}`} element={<Questions data={category.questions} />} />
-            ))} */}
+            <Route path="/" element={<Home />} />
+            {categories.map((category) => (
+              <Route key = {`/${category._id}`} path={`/${category._id}`} element={<Questions data={category.questions} />} />
+            ))}
             {/* <Route path="/:cid" element={<QuestionsPage />} /> */}
-            {/* <Route path={category.id} */}
           </Routes>
       </BrowserRouter>
     </div>
@@ -62,15 +59,15 @@ const useAPI = () =>
 {
   const searchCategories = async() =>
   {
-    const response = await axios.get(SERVER_API_URL);
-
-    return(response.data.categories);
-    const categories = response.data.categories;
-    categories.forEach((category) =>
-    {
-      console.log(category.name);
-    });
-    // console.log(response.data);
+    const res = await axios.get(SERVER_API_URL);
+    // console.log(res.data);
+    return(res.data.categories);
+    // const categories = res.data.categories;
+    // categories.forEach((category) =>
+    // {
+    //   console.log(category.name);
+    // });
+    // console.log(res.data);
   }
   useEffect(() =>
   {
@@ -79,3 +76,27 @@ const useAPI = () =>
 }
 
 export default App;
+
+
+// [
+//   {
+//       "_id": "65edbc4d59d8d413d72305a9",
+//       "name": "Strings",
+//       "resources": [
+//           "https://www.youtube.com/watch?v=dlt9Gyq6rb0&list=PLDdcY4olLQk0A0o2U0fOUjmO2v3X6GOxX"
+//       ],
+//       "completion": 0,
+//       "questions": [
+//           {
+//               "name": "Reverse a String",
+//               "difficulty": 0,
+//               "solution": "https://leetcode.com/problems/reverse-string/solutions",
+//               "status": 0,
+//               "link": [
+//                   "https://leetcode.com/problems/reverse-string/"
+//               ],
+//               "_id": "65ee2012269e20427f243587"
+//           }
+//         ]
+//       }
+//     ]

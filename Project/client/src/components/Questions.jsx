@@ -5,10 +5,13 @@ import { SERVER_API_URL } from "../config.js";
 import Categories from "./Categories.jsx";
 
 function Questions(data) {
-  const [categories, setCategories] = useState([]);
-  const [questions, setQuestions] = useState([]);
+//   const [categories, setCategories] = useState([]);
+//   const [questions, setQuestions] = useState([]);
   const [err, setErr] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  console.log(data.data[0].name);
+  data = data.data;
+//   console.log(data[0].name);
+//   data.map((question) => (console.log(question.name)))
 //   setQuestions = data.questions;
 //   const fetchData = async () => {
 //     try {
@@ -26,13 +29,7 @@ function Questions(data) {
 //   useEffect(() => {fetchData()}, []);
   return (
     <>
-      {isLoading ? (
-        <p>Loading questions...</p>
-      ) : err ? (
-        <p>Error fetching questions: {err.message}</p>
-      ) : (
-        <>
-            {data.questions.map((question) => (
+            {data.map((question) => (
             <Question
               id = {question._id}
               name = {question.name}
@@ -42,8 +39,6 @@ function Questions(data) {
               link = {question.link}
             />
           ))}
-        </>
-      )}
     </>
   );
 }
