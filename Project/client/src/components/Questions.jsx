@@ -32,7 +32,7 @@ function Questions(data) {
         <p>Error fetching questions: {err.message}</p>
       ) : (
         <>
-            {data.map((question) => (
+            {data.questions.map((question) => (
             <Question
               id = {question._id}
               name = {question.name}

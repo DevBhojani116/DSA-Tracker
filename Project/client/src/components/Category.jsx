@@ -14,7 +14,7 @@ function Category(props) {
             <p>Total Questions: {props.questions.length}</p>
             <p>Completion status: {props.completion}%</p>
             <p>
-            <Link to={`/questions`} element={<Questions data={props.questions} />}>
+            <Link to={`/${props.id}`} onClick={()=>{props.changeCategory(props.category)}}>
             {/* <BrowserRouter>
             <Route path={`/${props._id}`} element={<Questions data={props.questions} />} />
             </BrowserRouter> */}
