@@ -5,7 +5,6 @@ import { SERVER_API_URL } from "../config.js";
 
 function Categories() {
   const [categories, setCategories] = useState([]);
-  const [count, setCount] = useState(0);
   const [err, setErr] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const fetchData = async () => {
@@ -13,7 +12,6 @@ function Categories() {
       const res = await axios.get(SERVER_API_URL);
       console.log(res.data);
       setCategories(res.data.categories);
-      setCount(res.data.count);
     } catch (err) {
       console.log(err);
       setErr(err);
@@ -24,25 +22,25 @@ function Categories() {
 
   useEffect(() => {fetchData()}, []);
   return (
-    <div>
+    <>
       {isLoading ? (
         <p>Loading categories...</p>
       ) : err ? (
         <p>Error fetching categories: {err.message}</p>
       ) : (
-        <div>
-          <h2>
-            Number of categories as of now - {count}
-          </h2>
+        <>
           {categories.map((category) => (
             <Category
-              id={category._id}
-              name={category.name}
+              id = {category._id}
+              name = {category.name}
+              resources = {category.resources}
+              completion = {category.completion}
+              questions = {category.questions}
             />
           ))}
-        </div>
+        </>
       )}
-    </div>
+    </>
   );
 }
 

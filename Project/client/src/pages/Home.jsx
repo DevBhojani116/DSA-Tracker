@@ -6,7 +6,7 @@ function Home() {
   return (
     <div className = "app">
       <h1>DSA Tracker</h1>
-      <div>
+      <div className="container">
       <Categories />
       </div>
     </div>
