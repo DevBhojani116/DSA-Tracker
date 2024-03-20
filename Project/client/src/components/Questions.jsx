@@ -11,9 +11,9 @@ function Questions(data) {
 //   const [err, setErr] = useState(null);
 
 //   console.log(data.data[0].name);
-  data = data.data;
+  const d = data.data.questions;
   
-//   console.log(data[0].name);
+  // console.log(data.data._id);
 //   data.map((question) => (console.log(question.name)))
 //   setQuestions = data.questions;
 //   const fetchData = async () => {
@@ -44,7 +44,7 @@ function Questions(data) {
         </tr>
       </thead>  
       <tbody>
-            {data.map((question) => (
+            {d.map((question) => (
             <Question
               id = {question._id}
               name = {question.name}
@@ -53,6 +53,7 @@ function Questions(data) {
               status = {question.status}
               link = {question.link}
               notes = {question.notes}
+              catID = {data.data._id}
              />
           ))}
       </tbody>
