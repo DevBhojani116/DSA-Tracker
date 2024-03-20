@@ -35,7 +35,7 @@ useEffect(() =>
           <Routes>
             <Route path="/" element={<Home />} />
             {categories.map((category) => (
-              <Route key = {`/${category._id}`} path={`/${category._id}`} element={<Questions data={category.questions} />} />
+              <Route key = {`/${category._id}`} path={`/${category._id}`} element={<Questions data={category.questions}/>} />
             ))}
           </Routes>
       </BrowserRouter>

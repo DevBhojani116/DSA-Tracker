@@ -31,16 +31,19 @@ function Questions(data) {
 
 //   useEffect(() => {fetchData()}, []);
   return (
-    <table className="abcd">
+    <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+      <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
         <tr>
-            <th>Question id</th>
-            <th>Question name</th>
-            <th>Difficulty</th>
-            <th>Link to solution</th>
-            <th>Question status</th>
-            <th>Notes</th>
+            <th className="px-6 py-3">Question id</th>
+            <th className="px-6 py-3">Question name</th>
+            <th className="px-6 py-3">Difficulty</th>
+            <th className="px-6 py-3">Link to question</th>
+            <th className="px-6 py-3">Link to solution</th>
+            <th className="px-6 py-3">Question status</th>
+            <th className="px-6 py-3">Notes</th>
         </tr>
-        <>
+      </thead>  
+      <tbody>
             {data.map((question) => (
             <Question
               id = {question._id}
@@ -50,9 +53,9 @@ function Questions(data) {
               status = {question.status}
               link = {question.link}
               notes = {question.notes}
-            />
+             />
           ))}
-        </>
+      </tbody>
     </table>
   );
 }
