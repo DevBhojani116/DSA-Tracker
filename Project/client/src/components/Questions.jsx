@@ -4,33 +4,16 @@ import Question from "./Question.jsx";
 import { SERVER_API_URL } from "../config.js";
 import Categories from "./Categories.jsx";
 import "../App.css";
+import HorizontalProgressBar from "./ProgressBar.jsx";
 
 function Questions(data) {
-//   const [categories, setCategories] = useState([]);
-//   const [questions, setQuestions] = useState([]);
-//   const [err, setErr] = useState(null);
-
-//   console.log(data.data[0].name);
   const d = data.data.questions;
   
   // console.log(data.data._id);
-//   data.map((question) => (console.log(question.name)))
-//   setQuestions = data.questions;
-//   const fetchData = async () => {
-//     try {
-//       const res = await axios.get(SERVER_API_URL);
-//       console.log(res.data);
-//       setCategories(res.data.categories);
-//     } catch (err) {
-//       console.log(err);
-//       setErr(err);
-//     } finally {
-//       setIsLoading(false);
-//     }
-//   };
 
-//   useEffect(() => {fetchData()}, []);
   return (
+  <div class = "app">
+    <h1 class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-white md:text-5xl lg:text-6xl dark:text-white"><span class="text-[#E65F5C] dark:text-[#E65F5C]">DSA </span>Tracker: {data.data.name}</h1>
     <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
       <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
         <tr>
@@ -40,7 +23,7 @@ function Questions(data) {
             <th className="px-6 py-3">Link to question</th>
             <th className="px-6 py-3">Link to solution</th>
             <th className="px-6 py-3">Question status</th>
-            <th className="px-6 py-3">Notes</th>
+            {/* <th className="px-6 py-3">Notes</th> */}
         </tr>
       </thead>  
       <tbody>
@@ -58,6 +41,7 @@ function Questions(data) {
           ))}
       </tbody>
     </table>
+  </div>
   );
 }
 

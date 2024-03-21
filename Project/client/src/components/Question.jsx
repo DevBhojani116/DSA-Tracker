@@ -80,7 +80,7 @@ function Question(props) {
           </select>
         </form>
       </td>
-      <td class="px-6 py-4">{props.notes}</td>
+      {/* <td class="px-6 py-4">{props.notes}</td> */}
     </tr>
   );
 }

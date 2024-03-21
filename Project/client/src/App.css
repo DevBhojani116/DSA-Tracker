@@ -25,7 +25,7 @@ code {
 
 body {
   font-family: var(--font-roboto);
-  background-color: var(--beige);
+  background-color: rgba(14, 13, 13, 0.92);
 }
 
 code {
@@ -76,14 +76,14 @@ h1
 .category 
 {
   display: flex;
-  width: 310px;
+  width: 45%;
   height: 200px;
   margin: 1.5rem;
   position: relative;
   border-radius: 12px;
   overflow: hidden;
   border: none;
-  background-color: var(--icterine);
+  background-color: rgba(39, 38, 38, 0.92);
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0, 1);
   box-shadow: 0px 13px 10px -7px rgba(0, 0, 0, 0.1);
 }
@@ -99,7 +99,7 @@ h1
 
 .category:hover 
 {
-  box-shadow: 0px 30px 18px -8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 1px 18px -8px white;
   transform: scale(1.05, 1.05);
 }
 
