@@ -23,7 +23,9 @@ function Questions(data) {
             <th className="px-6 py-3">Link to question</th>
             <th className="px-6 py-3">Link to solution</th>
             <th className="px-6 py-3">Question status</th>
-            <th className="px-6 py-3">Notes</th>
+            <th className="px-6 py-3">Notes <p
+            class="block mb-2 text-[7px] font-medium text-gray-900 dark:text-white"
+          >Press Enter to save your note</p></th>
         </tr>
       </thead>  
       <tbody>

@@ -132,10 +132,6 @@ function Question(props) {
       </td>
       <td class="px-6 py-4">
         <form class="max-w-sm mx-auto">
-          <label
-            for="message"
-            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-          ></label>
           <textarea
             id="message"
             rows="4"
@@ -148,9 +144,10 @@ function Question(props) {
               }
             }}
           >
+          
             {props.notes}
           </textarea>
-          {/* <button onClick={deleteNote} className="px-4 py-2 bg-red-500 text-white rounded-md mt-2">Delete Note</button> */}
+          <button onClick={deleteNote} className="px-4 py-2 bg-red-500 text-white rounded-md mt-2">Delete Note</button>
         </form>
       </td>
     </tr>

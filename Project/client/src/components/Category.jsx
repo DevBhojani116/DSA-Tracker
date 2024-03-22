@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import "../App.css";
 import Questions from "./Questions.jsx"
 import ProgressBar from "./ProgressBar.jsx";
+import axios from 'axios';
+import { SERVER_API_URL } from "../config.js";
 
 function Category(props) {
   return (
