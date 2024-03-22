@@ -1,21 +1,71 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../App.css";
 import axios from "axios";
 import { SERVER_API_URL } from "../config.js";
 
 function Question(props) {
-
-  const statusChange = async(e) =>
-  {
+  const statusChange = async (e) => {
     e.preventDefault();
     // console.log(e.target.value);
     const product = {};
-    const status = e.target.value==0?"notDone":e.target.value==1?"revision":"done";
-    await axios.patch(SERVER_API_URL + '/' + `${props.catID}` + "/questions/" +`${props.id}` + "/" + status, product);
-  }
+    const status =
+      e.target.value == 0
+        ? "notDone"
+        : e.target.value == 1
+        ? "revision"
+        : "done";
+    await axios.patch(
+      SERVER_API_URL +
+        "/" +
+        `${props.catID}` +
+        "/questions/" +
+        `${props.id}` +
+        "/" +
+        status,
+      product
+    );
+    window.location.reload();
+  };
+
+  const addNote = async (e) => {
+    e.preventDefault();
+    // console.log(e.target.value);
+    const product = { notes: e.target.value };
+    await axios.patch(
+      SERVER_API_URL +
+        "/" +
+        `${props.catID}` +
+        "/questions/" +
+        `${props.id}` +
+        "/addNoteQuestion",
+      product
+    );
+    window.location.reload();
+  };
+  const deleteNote = async (e) => {
+    e.preventDefault();
+    const product = { notes: "" }; // Set notes to an empty string
+    await axios.patch(
+      SERVER_API_URL +
+        "/" +
+        `${props.catID}` +
+        "/questions/" +
+        `${props.id}` +
+        "/addNoteQuestion",
+      product
+    );
+    window.location.reload();
+  };
+
   return (
-    <tr className="question bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+    <tr
+      className={`${
+        props.status === 2
+          ? "bg-green-900 border-b dark:bg-green-900 dark:border-gray-700"
+          : "bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+      }`}
+    >
       <td class="px-6 py-4">{props.id}</td>
       <td class="px-6 py-4">
         <a href={props.link[0]}>{props.name}</a>
@@ -72,7 +122,7 @@ function Question(props) {
             id="status"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             defaultValue={props.status}
-            onChange = {statusChange}
+            onChange={statusChange}
           >
             <option value="0">Pending</option>
             <option value="1">Revisit</option>
@@ -80,7 +130,29 @@ function Question(props) {
           </select>
         </form>
       </td>
-      {/* <td class="px-6 py-4">{props.notes}</td> */}
+      <td class="px-6 py-4">
+        <form class="max-w-sm mx-auto">
+          <label
+            for="message"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+          ></label>
+          <textarea
+            id="message"
+            rows="4"
+            class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Add Notes"
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                const note = e.target.value.trim();
+                addNote(e);
+              }
+            }}
+          >
+            {props.notes}
+          </textarea>
+          {/* <button onClick={deleteNote} className="px-4 py-2 bg-red-500 text-white rounded-md mt-2">Delete Note</button> */}
+        </form>
+      </td>
     </tr>
   );
 }

@@ -288,3 +288,26 @@ export const updateQuestion = async(req,res) =>
         res.status(500).json({message:err.message});
     }
 }
+
+export const addNoteQuestion = async(req,res) =>
+{
+    try
+    {
+        const {cid,qid} = req.params;
+
+        const updatedQuestion = req.body;
+        
+        const category = await categoryModel.findById(cid);
+        const questionToUpdate = category.questions.id(qid);
+
+        questionToUpdate.notes = updatedQuestion.notes;
+
+        await category.save();
+
+        res.status(200).json({updatedQuestion})
+    }
+    catch(err)
+    {
+        res.status(500).json({message:err.message});
+    }
+}

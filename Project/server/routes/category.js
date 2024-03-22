@@ -2,7 +2,7 @@ import express from "express";
 
 // import questionsRouter from "./questions.js";
 import { postCategory,getAllCategories,getCategoryByID,deleteCategory,addNote,addResources,updateCategory } from "../controllers/category.js";
-import { postQuestion,getAllQuestions,revision,done,notDone,addSolution,deleteQuestion,updateQuestion } from "../controllers/questions.js";
+import { postQuestion,getAllQuestions,revision,done,notDone,addSolution,deleteQuestion,updateQuestion,addNoteQuestion } from "../controllers/questions.js";
 
 const router = express.Router({mergeParams:true});
 
@@ -28,5 +28,6 @@ router.patch("/:cid/questions/:qid/notDone",notDone);
 router.patch("/:cid/questions/:qid/addSolution", addSolution);
 router.delete("/:cid/questions/:qid",deleteQuestion);
 router.put("/:cid/questions/:qid",updateQuestion);
+router.patch("/:cid/questions/:qid/addNoteQuestion",addNoteQuestion);
 
 export default router;

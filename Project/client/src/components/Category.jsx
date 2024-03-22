@@ -8,7 +8,7 @@ function Category(props) {
   return (
       <div className="category flex">
         <div>
-            <h3 className="mb-2 text-4xl font-bold tracking-tight text-gray-900 dark:text-gray-500"><p>{props.name}</p></h3>
+            <h3 className="mt-5 mb-2 text-4xl font-bold tracking-tight text-gray-900 dark:text-gray-500"><p>{props.name}</p></h3>
             {/* <p>ID: {props.id}</p> */}
             <p>Total Questions: {props.questions.length}</p>
             <p>Completion status: {Math.floor(props.completion*100)/100}%</p>
